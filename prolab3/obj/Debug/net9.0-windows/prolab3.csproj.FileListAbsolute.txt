@@ -1,0 +1,14 @@
+C:\Users\servan\RiderProjects\prolab3\prolab3\bin\Debug\net9.0-windows\prolab3.exe
+C:\Users\servan\RiderProjects\prolab3\prolab3\bin\Debug\net9.0-windows\prolab3.deps.json
+C:\Users\servan\RiderProjects\prolab3\prolab3\bin\Debug\net9.0-windows\prolab3.runtimeconfig.json
+C:\Users\servan\RiderProjects\prolab3\prolab3\bin\Debug\net9.0-windows\prolab3.dll
+C:\Users\servan\RiderProjects\prolab3\prolab3\bin\Debug\net9.0-windows\prolab3.pdb
+C:\Users\servan\RiderProjects\prolab3\prolab3\obj\Debug\net9.0-windows\prolab3.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\servan\RiderProjects\prolab3\prolab3\obj\Debug\net9.0-windows\prolab3.AssemblyInfoInputs.cache
+C:\Users\servan\RiderProjects\prolab3\prolab3\obj\Debug\net9.0-windows\prolab3.AssemblyInfo.cs
+C:\Users\servan\RiderProjects\prolab3\prolab3\obj\Debug\net9.0-windows\prolab3.csproj.CoreCompileInputs.cache
+C:\Users\servan\RiderProjects\prolab3\prolab3\obj\Debug\net9.0-windows\prolab3.dll
+C:\Users\servan\RiderProjects\prolab3\prolab3\obj\Debug\net9.0-windows\refint\prolab3.dll
+C:\Users\servan\RiderProjects\prolab3\prolab3\obj\Debug\net9.0-windows\prolab3.pdb
+C:\Users\servan\RiderProjects\prolab3\prolab3\obj\Debug\net9.0-windows\prolab3.genruntimeconfig.cache
+C:\Users\servan\RiderProjects\prolab3\prolab3\obj\Debug\net9.0-windows\ref\prolab3.dll
