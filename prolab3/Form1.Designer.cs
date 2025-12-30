@@ -35,7 +35,7 @@ partial class Form1
         // 
         AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
         AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-        ClientSize = new System.Drawing.Size(799, 452);
+        ClientSize = new System.Drawing.Size(1063, 755);
         Text = "Form1";
         ResumeLayout(false);
     }

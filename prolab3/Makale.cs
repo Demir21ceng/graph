@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿
 
 namespace prolab3;
 
 public class Makale
 {
-    // --- Temel Veriler ---
+    
     public string Id { get; set; }
     public string Title { get; set; }
     public int Year { get; set; }
@@ -13,12 +13,11 @@ public class Makale
     
     public List<string> Authors { get; set; }
     
-    // Atıflar (Edges)
+   
     public LinkedList<string> ReferencedWorks { get; set; }
     public LinkedList<Makale> CitedBy { get; set; } 
 
-    // --- YENİ EKLENEN: Sıralı Bağlı Liste İçin İşaretçi ---
-    // ID sırasına göre bir sonraki makaleyi tutar (Yeşil Çizgi mantığı)
+    
     public Makale Next { get; set; } 
 
     public int CitationCount { get; set; } = 0; 
@@ -43,7 +42,7 @@ public class Makale
         {
             if (Authors == null || Authors.Count == 0) return "?";
 
-            // Sadece ilk yazarın baş harflerini alalım (yer darlığından dolayı)
+           
             string ilkYazar = Authors[0];
             string[] parcalar = ilkYazar.Split(' ');
             string kisaAd = "";

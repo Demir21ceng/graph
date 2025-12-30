@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿
 
 namespace prolab3;
 
@@ -9,7 +7,7 @@ public class MakaleGrafi
     public Dictionary<string, Makale> Makaleler { get; private set; }
     public List<Makale> MakaleListesi { get; private set; }
     
-    // Analiz Sonuçları
+    
     public Dictionary<string, double> BetweennessScores { get; private set; }
 
     public MakaleGrafi()
@@ -24,7 +22,7 @@ public class MakaleGrafi
         Makaleler.Clear();
         MakaleListesi.Clear();
 
-        // 1. Düğümleri Ekle
+        
         foreach (var makale in hamListe)
         {
             if (!string.IsNullOrEmpty(makale.Id) && !Makaleler.ContainsKey(makale.Id))
@@ -34,7 +32,7 @@ public class MakaleGrafi
             }
         }
 
-        // 2. Yönlü Kenarları Kur (Atıflar)
+        
         foreach (var kaynak in MakaleListesi)
         {
             if (kaynak.ReferencedWorks == null) continue;
@@ -50,7 +48,7 @@ public class MakaleGrafi
             }
         }
         
-        // 3. H-Metrikleri Hesapla
+        
         MetrikleriHesapla();
     }
 
@@ -58,7 +56,7 @@ public class MakaleGrafi
     {
         foreach (var m in MakaleListesi)
         {
-            // H-Index için sıralama (Büyükten küçüğe)
+            
             var refs = m.CitedBy.OrderByDescending(x => x.CitationCount).ToList();
             int h = 0;
             for (int i = 0; i < refs.Count; i++)
@@ -68,7 +66,7 @@ public class MakaleGrafi
             m.HIndex = h;
             m.HCore = refs.Take(h).ToList();
             
-            // H-Median
+            
             if (h > 0)
             {
                 var scores = m.HCore.Select(x => x.CitationCount).OrderBy(x => x).ToList();
@@ -79,27 +77,24 @@ public class MakaleGrafi
         }
     }
 
-    // --- ANALİZ METODLARI (PDF İsterleri) ---
-
-    // Yardımcı: Bir makalenin YÖNSÜZ (Undirected) komşularını getirir
-    // PDF: "Yönlü kenarlar yönsüz kenarlarla değiştirilerek..."
+   
     private List<Makale> GetYonsuzKomsular(Makale m)
     {
         HashSet<Makale> komsular = new HashSet<Makale>();
         
-        // Gidenler
+       
         if (m.ReferencedWorks != null)
             foreach (var id in m.ReferencedWorks)
                 if (Makaleler.ContainsKey(id)) komsular.Add(Makaleler[id]);
         
-        // Gelenler
+        
         foreach (var citing in m.CitedBy)
             komsular.Add(citing);
 
         return komsular.ToList();
     }
 
-    // Betweenness Centrality (Brandes Algoritması - Unweighted)
+    
     public void CalculateBetweenness()
     {
         BetweennessScores.Clear();
@@ -163,15 +158,15 @@ public class MakaleGrafi
             }
         }
 
-        // Yönsüz graf olduğu için 2'ye bölüyoruz
+        
         foreach (var key in BetweennessScores.Keys.ToList())
             BetweennessScores[key] /= 2.0;
     }
 
-    // K-Core Decomposition (Yönsüz Dereceye Göre)
+    
     public HashSet<Makale> GetKCoreList(int k)
     {
-        // 1. Dereceleri Hesapla
+       
         Dictionary<string, int> degrees = new Dictionary<string, int>();
         Dictionary<string, bool> removed = new Dictionary<string, bool>();
         
@@ -181,7 +176,7 @@ public class MakaleGrafi
             removed[m.Id] = false;
         }
 
-        // 2. Yinelemeli Silme
+        
         bool changed = true;
         while (changed)
         {
@@ -193,7 +188,7 @@ public class MakaleGrafi
                     removed[m.Id] = true;
                     changed = true;
                     
-                    // Komşuların derecesini düşür
+                   
                     foreach (var n in GetYonsuzKomsular(m))
                     {
                         if (!removed[n.Id])
@@ -203,7 +198,7 @@ public class MakaleGrafi
             }
         }
 
-        // 3. Kalanları Döndür
+        
         HashSet<Makale> core = new HashSet<Makale>();
         foreach (var m in MakaleListesi)
         {
@@ -212,7 +207,7 @@ public class MakaleGrafi
         return core;
     }
 
-    // Konumlandırma
+   
     public void RastgeleKonumlandir(int w, int h)
     {
         Random r = new Random();
@@ -222,38 +217,35 @@ public class MakaleGrafi
             m.Y = r.Next(50, h - 50);
         }
     }
-    // ... (Mevcut kodların devamına sınıfın içine ekle) ...
-
-    // YENİ: Sadece verilen listedeki (ekrandaki) makaleler arasında K-Core hesaplar
+  
     public HashSet<Makale> GetKCoreFromSubset(HashSet<Makale> subset, int k)
     {
-        // 1. Sadece bu küme içindeki yerel dereceleri hesapla
+        
         Dictionary<string, int> localDegrees = new Dictionary<string, int>();
         Dictionary<string, bool> removed = new Dictionary<string, bool>();
 
-        // Başlangıç: Herkesin derecesini 0 yap
+        
         foreach (var m in subset)
         {
             localDegrees[m.Id] = 0;
             removed[m.Id] = false;
         }
 
-        // Kenarları say (Sadece iki ucu da subset içindeyse)
+        
         foreach (var m in subset)
         {
-            // Yönsüz kabul ettiğimiz için hem giden hem gelenlere bakıyoruz
+            
             List<string> baglantilar = new List<string>();
             
-            if (m.ReferencedWorks != null) baglantilar.AddRange(m.ReferencedWorks); // Gidenler
-            foreach (var citing in m.CitedBy) baglantilar.Add(citing.Id); // Gelenler
+            if (m.ReferencedWorks != null) baglantilar.AddRange(m.ReferencedWorks); 
+            foreach (var citing in m.CitedBy) baglantilar.Add(citing.Id); 
 
-            // Tekrarları önle (A->B ve B<-A aynı kenardır)
+            
             baglantilar = baglantilar.Distinct().ToList();
 
             foreach (var refId in baglantilar)
             {
-                // Eğer karşı taraf da ekrandaysa dereceyi artır
-                // (Burada her kenarı 2 kez sayacağız ama sorun değil, çünkü her iki düğüm için de işlem yapıyoruz)
+                
                 if (localDegrees.ContainsKey(refId))
                 {
                     localDegrees[m.Id]++;
@@ -261,13 +253,13 @@ public class MakaleGrafi
             }
         }
 
-        // 2. Yinelemeli Silme (Peeling)
+        
         bool changed = true;
         while (changed)
         {
             changed = false;
             
-            // Derecesi K'dan küçük olanları bul ve silinmiş olarak işaretle
+            
             List<Makale> toRemove = new List<Makale>();
             
             foreach (var m in subset)
@@ -285,7 +277,7 @@ public class MakaleGrafi
                 {
                     removed[m.Id] = true;
 
-                    // Bu düğüm silindiği için, ekrandaki komşularının derecesini düşür
+                    
                     List<string> baglantilar = new List<string>();
                     if (m.ReferencedWorks != null) baglantilar.AddRange(m.ReferencedWorks);
                     foreach (var citing in m.CitedBy) baglantilar.Add(citing.Id);
@@ -301,7 +293,7 @@ public class MakaleGrafi
             }
         }
 
-        // 3. Silinmeyenleri (K-Core Kümesini) Döndür
+        
         HashSet<Makale> coreNodes = new HashSet<Makale>();
         foreach (var m in subset)
         {

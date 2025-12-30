@@ -67,15 +67,15 @@ public class JsonParser
         string yearStr = DegerBul(json, "\"year\":", false);
         if (int.TryParse(yearStr, out int y)) m.Year = y;
 
-        // Yazarlar (List)
+       
         List<string> authorsList = ListeBul(json, "\"authors\":");
         m.Authors = authorsList;
 
-        // Referanslar (LinkedList'e çeviriyoruz)
+       
         List<string> refList = ListeBul(json, "\"referenced_works\":");
         foreach(var r in refList)
         {
-            m.ReferencedWorks.AddLast(r); // Sona ekleme
+            m.ReferencedWorks.AddLast(r);
         }
 
         return m;
@@ -105,7 +105,7 @@ public class JsonParser
         }
     }
 
-    // Helper olarak List dönüyor, yukarıda LinkedList'e çeviriyoruz
+    
     private List<string> ListeBul(string json, string key)
     {
         var list = new List<string>();
