@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("prolab3")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d46c4e8c0fb8f365573cdff6bd6ba99da6901b24")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dbd601e10a08e6ec861aa2a032838a663684f5f2")]
 [assembly: System.Reflection.AssemblyProductAttribute("prolab3")]
 [assembly: System.Reflection.AssemblyTitleAttribute("prolab3")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
